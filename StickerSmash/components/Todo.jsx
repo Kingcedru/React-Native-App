@@ -2,13 +2,25 @@ import { View, Text, StyleSheet } from "react-native";
 import { EvilIcons, Feather } from "@expo/vector-icons";
 import React from "react";
 
-export default function Todo({ item }) {
+export default function Todo({ item, setTodos, setModal }) {
+  const removeTodo = () => {
+    setTodos((previous) => previous.filter((todo) => todo !== item));
+  };
+  const openModal = () => {
+    setModal(true);
+  };
   return (
     <View style={styles.todo}>
       <Text style={{ color: "white", fontSize: 15 }}>{item}</Text>
       <View style={styles.todo}>
-        <EvilIcons name="trash" size={24} color="red" />
-        <Feather name="edit" size={24} color="green" style={{ marginTop: 3 }} />
+        <EvilIcons onPress={removeTodo} name="trash" size={24} color="red" />
+        <Feather
+          onPress={openModal}
+          name="edit"
+          size={24}
+          color="green"
+          style={{ marginTop: 3 }}
+        />
       </View>
     </View>
   );
